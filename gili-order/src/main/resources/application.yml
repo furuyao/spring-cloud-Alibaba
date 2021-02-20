@@ -1,0 +1,38 @@
+server:
+  port: 13000
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: root
+    url: jdbc:mysql://192.168.37.134:3306/gulimall_oms?useUnicode=true&characterEncoding=UTF-8&serverTimezone=Asia/Shanghai
+  rabbitmq:
+    host: 192.168.37.134
+    virtual-host: /
+    publisher-confirm-type: correlated
+      # publisher-confirms: true
+    publisher-returns: true
+    template:
+      mandatory: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+    port: 5672
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  application:
+    name: guli-order
+  thymeleaf:
+    cache: false
+  mvc:
+    date-format: yyyy-MM-dd HH:mm:ss
+
+mybatis-plus:
+  mapperLocations: classpath:mapper/**/*.xml
+  global-config:
+    db- config:
+      id-type: auto

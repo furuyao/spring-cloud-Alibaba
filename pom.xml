@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.guli.gulike</groupId>
+    <artifactId>guli</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>guli</name>
+    <description>聚合</description>
+    <packaging>pom</packaging>
+    <modules>
+        <module>guli-third-party</module>
+        <module>guli-ware</module>
+        <module>guli-coupon</module>
+        <module>guli-member</module>
+        <module>guli-produclt</module>
+        <module>gili-order</module>
+        <module>renren-fast</module>
+        <module>renren-generator</module>
+        <module>guli-gateway</module>
+        <module>guli-common</module>
+        <module>guli-elasticsearch</module>
+        <module>guli-auth-server</module>
+        <module>guli-cart</module>
+        <module>guli-secki</module>
+    </modules>
+
+
+</project>

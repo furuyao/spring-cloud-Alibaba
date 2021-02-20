@@ -1,0 +1,84 @@
+spring:
+  cloud:
+    alicloud:
+      access-key: LTAI4GHuuSXMN3zakofPSuyZ
+      secret-key: uuBKGDhLJIhKdYyAq2QRxykp5BNNiX
+      oss:
+        endpoint: oss-cn-chengdu.aliyuncs.com
+        bucket: gulifry
+    gateway:
+      routes:
+        - id: guli_produclt
+          uri: lb://guli-produclt
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - RewritePath=/api/product(?<segment>/?.*), $\{segment}
+
+        - id: coupon_rote
+          uri: lb://guli-coupon
+          predicates:
+            - Path=/api/coupon/**
+          filters:
+            - RewritePath=/api/coupon(?<segment>/?.*), $\{segment}
+
+        - id: thrit_party_rote
+          uri: lb://guli-third-party
+          predicates:
+            - Path=/api/thirdparty/**
+          filters:
+            - RewritePath=/api/thirdparty/(?<segment>/?.*), /$\{segment}
+
+        - id: member_route
+          uri: lb://guli-member
+          predicates:
+            - Path=/api/member/**
+          filters:
+            - RewritePath=/api/member(?<segment>/?.*), /$\{segment}
+        - id: ware_route
+          uri: lb://guli-ware
+          predicates:
+            - Path=/api/ware/**
+          filters:
+            - RewritePath=/api/ware(?<segment>/?.*), $\{segment}
+        - id: renren_admin
+          uri: lb://renren-fast
+          predicates:
+            - Path=/api/**
+          filters:
+            - RewritePath=/api(?<segment>/?.*), /renren-fast/$\{segment}
+
+        - id: gulimall_host_route
+          uri: lb://guli-produclt
+          predicates:
+            - Host=gulimall.com,item.gulimall.com
+
+        - id: gulimall_host_route
+          uri: lb://guli-elasticsearch
+          predicates:
+            - Host=search.gulimall.com
+
+        - id: gulimall_auth_server
+          uri: lb://guli-auth-server
+          predicates:
+            - Host=auth.gulimall.com
+
+        - id: gulimall_guli_cart
+          uri: lb://guli-cart
+          predicates:
+            - Host=cart.gulimall.com
+
+        - id: gulimall_order_route
+          uri: lb://guli-order
+          predicates:
+            - Host=order.gulimall.com
+
+        - id: gulimall_order_route
+          uri: lb://guli-member
+          predicates:
+            - Host=member.gulimall.com
+
+        - id: gulimall_seckill_cart
+          uri: lb://guli-secki
+          predicates:
+            - Host=seckill.gulimall.com

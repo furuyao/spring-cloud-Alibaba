@@ -1,0 +1,42 @@
+{
+  "groups": [
+    {
+      "name": "spring.cloud.alicloud.sms",
+      "type": "com.guli.gulithirdparty.component.SmsComponent",
+      "sourceType": "com.guli.gulithirdparty.component.SmsComponent"
+    }
+  ],
+  "properties": [
+    {
+      "name": "spring.cloud.alicloud.sms.appcode",
+      "type": "java.lang.String",
+      "description": "短信服务，appcode",
+      "sourceType": "com.guli.gulithirdparty.component.SmsComponent"
+    },
+    {
+      "name": "spring.cloud.alicloud.sms.host",
+      "type": "java.lang.String",
+      "description": "短信服务，请求地址 支持http 和 https 及 WEBSOCKET",
+      "sourceType": "com.guli.gulithirdparty.component.SmsComponent"
+    },
+    {
+      "name": "spring.cloud.alicloud.sms.path",
+      "type": "java.lang.String",
+      "description": "短信服务，后缀",
+      "sourceType": "com.guli.gulithirdparty.component.SmsComponent"
+    },
+    {
+      "name": "spring.cloud.alicloud.sms.sign",
+      "type": "java.lang.String",
+      "description": "短信服务，签名",
+      "sourceType": "com.guli.gulithirdparty.component.SmsComponent"
+    },
+    {
+      "name": "spring.cloud.alicloud.sms.skin",
+      "type": "java.lang.String",
+      "description": "短信服务，模板内容",
+      "sourceType": "com.guli.gulithirdparty.component.SmsComponent"
+    }
+  ],
+  "hints": []
+}

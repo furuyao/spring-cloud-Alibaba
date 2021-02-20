@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>订单信息</title>
+    <script src="../js/jquery-3.5.0.min.js"></script>
+    <link href="../css/butterfly.css" rel="stylesheet"/>
+    <!-- theme -->
+    <link href="../css/animate.css" rel="stylesheet"/>
+    <link href="../css/snap.css" rel="stylesheet"/>
+    <style type="text/css">
+        html {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        body {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
+
+        .header {
+            background-color: #fff;
+        }
+
+        .header h1 {
+            text-align: center;
+            font-size: 16px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .go-back {
+            width: 24px;
+            font-size: 23px;
+            float: left;
+            position: fixed;
+            margin-left: 12px;
+            padding-left: 0px;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            height: 50px;
+            background-color: #f6f6f6;
+            /*z-index: 100;*/
+            z-index: 999;
+            /*#BEBEBE*/
+            border-top: 1px #ccc solid;
+            line-height: 1;
+        }
+
+        footer .tab-item {
+            position: relative;
+            display: table-cell;
+            width: 1%;
+            color: #929292;
+            text-align: center;
+            vertical-align: middle;
+            padding-top: 4px;
+            /*transform:translateY(-13px) ;*/
+        }
+
+        footer .detailicon {
+            font-size: 24px;
+            font-family: "my-iconfont";
+        }
+
+        footer .footerName {
+            margin-bottom: 4px;
+            margin-top: 3px;
+            font-size: 10px;
+        }
+
+        footer.border-t:before {
+            content: "";
+            z-index: -1;
+        }
+
+        footer .special_home {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: -25px;
+
+        }
+
+        footer .special_sub {
+            height: 49px;
+            width: 49px;
+            background-color: #fff;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        footer .special_home .special_div {
+            height: 24px;
+            width: 49px !important;
+            border-radius: 50%;
+            padding-top: 10px;
+            border: 1px solid #ccc;
+            border-radius: 50% 50% 0 0/100% 100% 0 0;
+            border-bottom: none;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        footer .special_name {
+            margin-top: 20px;
+            margin-bottom: 0px;
+        }
+
+        #mainIndex #content {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            bottom: 0;
+            overflow: auto;
+        }
+
+        #mainIndex .ui_server {
+            /*transform: translateY(-26px);*/
+        }
+
+        #mainIndex .serverImg {
+            background: url("../main/imgs/server.png") no-repeat center;
+            width: 50px;
+            background-size: 50px;
+            height: 50px;
+            position: absolute;
+            top: -18px;
+            left: 50%;
+            margin-left: -25px;
+            margin-bottom: 0px;
+        }
+
+        #mainIndex .sever-icon {
+            visibility: hidden !important;
+        }
+
+        #mainIndex .iconImg img {
+            height: 27px;
+            width: auto;
+        }
+
+        /*页面暂无数据之类的消息样式*/
+
+        .msg-notice {
+            color: #999;
+            font-size: 0.875rem;
+        }
+
+        .container,
+        .content {
+            /*background-color: #f2f2f2 !important;*/
+            background-color: white !important;
+        }
+
+        #mainIndex .startDom {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            background: #fff;
+        }
+
+        #mainIndex .startDom img {
+            width: 100%;
+            position: absolute;
+            left: 0px;
+            bottom: 0px;
+        }
+
+        @font-face {
+            font-family: 'pf_Regular';
+            src: url('fonts/FZLTHJW.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'pf_Medium';
+            src: url('fonts/FZLTXHJW.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        @font-face {
+            font-family: 'pf_Bold';
+            src: url('fonts/FZLTXIHJW.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .guideBtn_box{
+            margin-top: 40px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .guideBtn_box>img{
+            width: 30%;
+        }
+        .shutDownGuide{
+        }
+        #guide_Box{
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: block;
+            z-index: 1001;
+            transition: opacity 1s;
+            -webkit-user-drag: none;
+            visibility: visible;
+            width: 100%;
+            height: 100%;
+        }
+        #guide_Box>.guide_content_box{
+            padding: 20px;
+            position: relative;
+            word-break: break-all;
+            font-size: 18px;
+            opacity: 1;
+            background: transparent;
+        }
+    </style>
+</head>
+    <style type="text/css">
+      * {
+          margin: 0px;
+          padding: 0px;
+          box-sizing: content-box;
+      }
+    ul{
+        list-style: none;
+    }
+      .header{
+          /*padding-top: 20px;*/
+          height: 80px;
+          background-color: #75d6ff;
+          overflow: hidden;
+      }
+    /*#mySparePartOrder .header {*/
+        /*color: #fff;*/
+        /*background-color: #75d6ff;*/
+        /*margin-top: 0px;*/
+        /*height: 68px;*/
+    /*}*/
+    .new_header{
+        margin-top: 25px;
+    }
+    .orderBox{
+        list-style: none;
+        background-color: #ffffff;
+        width: 100%;
+    }
+
+    body{
+        /*background-color: #f4f5f6;*/
+    }
+
+    #mySparePartOrder .box {
+        padding: 30px 30px 30px 30px;
+        /*background: url('../my/img/warranty-banner.png') no-repeat center;*/
+        /*background-size: 100%;*/
+    }
+    .nav{
+        width: 100%;
+        height: 100px;
+        background-color: #008bfa;
+        text-align: center;
+
+    }
+    .nav>span{
+        font-size: 15px;
+        color: #ffffff;
+        line-height: 100px;
+    }
+    .back{
+        background:transparent;
+        border-width:0px;
+        outline:none;
+        color:#ffffff;
+        position:absolute;
+        left: 15px;
+        line-height: 100px;
+    }
+    .box{
+        width: 100%;
+        /*background-color:#008bfa ;*/
+        /*border-top: 1px solid #f4f5f6;*/
+        background: linear-gradient(to bottom, #75d6ff, 80%, #fafdff)
+    }
+    .infor{
+        width: 100%;
+        /*height: 135px;*/
+        height: auto;
+        /*background-color: #ffffff;*/
+    }
+    .car{
+        width: 80%;
+        height:43px;
+        border-bottom: 1px solid #f4f5f6;
+        position: relative;
+        margin: 0 auto;
+    }
+    .carNumber{
+        width: 80%;
+        height:43px;
+        /*border-bottom: 1px solid #f4f5f6;*/
+        position: relative;
+        margin: 0 auto;
+
+    }
+    .carType{
+        width: 100%;
+        height:43px;
+    }
+    .tupHeader{
+
+        font-size: 11px;
+        color: #bbc1c8;
+
+    }
+    .notFinish{
+        float: left;
+        line-height: 42px;
+        margin-left: 108px;
+    }
+    .finish{
+        float: right;
+        line-height: 42px;
+        margin-right: 108px;
+
+    }
+    .orderTitle{
+        width: 100%;
+        height: 52px;
+        border-bottom: 2px solid #f4f5f6
+    }
+    .orderTitle>span{
+        font-size: 11px;
+        color: #959595;
+        line-height: 52px;
+    }
+    .orderBox>ul{
+        margin-top: 10px;
+        width: 100%;
+        background-color: #ffffff;
+    }
+    .orderBox>ul>li{
+        width: 95%;
+        height: auto;
+        background-color:#fafafa;
+        border-radius: 15px;
+        padding-top: 14px;
+        position: relative;
+        margin: 10px auto 0 auto;
+
+    }
+    .orderBox>ul>li>span{
+        margin-left: 16px;
+        font-size: 10px;
+        color: #bcc2c9;
+    }
+    .details{
+        width: 100%;
+        background-color: #ffffff;
+    }
+    .details:before,.details:after{
+        content: "";
+        display:block;
+        clear:both
+    }
+    .logistics-list{
+        padding: 25px 30px;
+    }
+    .logistics-list .logistics-item{
+        padding-bottom: 18px;
+        position: relative;
+    }
+    .logistics-list .logistics-item .vertical-line{
+        height: 100%;
+        width: 1px;
+        background-color: #ccd0d5;
+        position: absolute;
+        left:10px;
+        top: 20px;
+    }
+    .logistics-list .logistics-item .circle.active{
+        background-color: #008bfa;
+    }
+    .logistics-list .logistics-item .circle{
+        position: absolute;
+        left: 0;
+        top: 20px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: #ccd0d5;
+    }
+    .logistics-list .logistics-item .logistics-title{
+        margin-left: 40px;
+    }
+    .logistics-list .logistics-item .address,.logistics-list .logistics-item .time{
+        margin-bottom: 14px;
+    }
+    .logistics-list .logistics-item .logistics-title .address{
+        font-size: 14px;
+    }
+    .logistics-list .logistics-item .logistics-title .time{
+        font-size: 15px;
+    }
+    .logistics-list .logistics-item .logistics-detail-list .logistics-detail-item{
+        margin-top: 50px;
+        position: relative;
+    }
+    .logistics-list .logistics-item .logistics-detail-list .logistics-detail-item .circle.little{
+        width: 10px;
+        height: 10px;
+        left: 5px;
+        top:6px
+    }
+    .logistics-list .logistics-item .logistics-detail-list .logistics-detail-item .line{
+        width: 60px;
+        height: 1px;
+        border-bottom: 1px dashed #ccd0d5;
+        position: absolute;
+        left: 15px;
+        top: 10px;
+    }
+    .logistics-list .logistics-item .logistics-detail-list .logistics-detail-item .logistics-detail-title{
+        margin-left: 80px;
+    }
+    .logistics-list>:last-child .vertical-line{
+        display: none;
+    }
+    #carInforList{
+        width: 175px;
+        height: 30px;
+        /*border: 1px solid;*/
+        position: absolute;
+        top: 5px;
+        left: 87px;
+        font-size: 14px;
+        margin-left: 8px;
+        background-color: #75d6ff;
+        border: none;
+        outline:none
+    }
+        .imgBox img{
+            width: 100%;
+        }
+</style>
+
+<body>
+<div class="header">
+    <div class="new_header">
+        <img class="go-back" src="../imges/icon_blackback.png" />
+        <h1 class="title_top">备件订单</h1>
+    </div>
+</div>
+
+<div class="container">
+    <!--<div class="nav">-->
+    <!--<span>订单信息</span>-->
+    <!--<button class="back">返回</button>-->
+    <!--</div>-->
+    <div class="box" id="box">
+        <!--车辆详细信息-->
+        <div class="infor">
+            <div class="car">
+                <div style="position: absolute;left: 17px;line-height: 43px">
+                    <img src="../imges/vin.png">
+                </div>
+                <span style="line-height: 43px;font-size: 14px;margin-left: 41px;color:#ffffff">车架号</span>
+                <!--<span id="vin"style="line-height: 43px;font-size: 10px;margin-left: 13px;color: #2c2e31;" id="vin"></span>-->
+                <!--<div style="line-height: 43px;float: right;margin-right: 17px;font-size: 10px;color:#a8afb7">-->
+                <!--<span id="changeCar">切换车辆</span>-->
+                <!--<img src="../my/img/xia.png" style="width:10px;height: 10px">-->
+                <!--</div>-->
+                <!--车辆更换列表-->
+                <!--<div class="modal-box" id="carInfor" style="display: none">-->
+                <select class="main" id="carInforList" onChange="getVariety(this.options[this.selectedIndex].value)">
+                    <!--<option id="init">暂无车辆</option>-->
+                </select>
+                <!--</div>-->
+            </div>
+            <div class="carNumber">
+                <div style="position: absolute;left: 17px;line-height: 43px">
+                    <img src="../imges/chepai.png">
+                </div>
+                <span style="line-height: 43px;font-size: 14px;margin-left: 41px;color:#ffffff">车牌号</span>
+                <span id="car_number"style="line-height: 43px;font-size: 14px;margin-left: 13px;color: #2c2e31;" id="vehcileNumber"></span>
+            </div>
+        </div>
+    </div>
+    <!--订单列表-->
+    <ul id="order-box">
+        <ul class="order">
+        </ul>
+        </li>
+    </ul>
+    <!--无车架号页面-->
+    <div class="emptyBox_noVin" style="display: none">
+        <div class="imgBox">
+            <img class="e_img" src="../imges/jindu_bg_empty_nor.png" />
+        </div>
+    </div>
+    <!--无物流信息页面-->
+    <div class="emptyBox_noLogistics" style="display: none">
+        <div class="imgBox">
+            <img class="e_img" src="../imges/jindu_bg_empty_nor2.png" />
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var hostport=document.location.host;  //动态获取服务器地址请求头
+    var jsonVin='';
+    var testUrl='http://scrmtest.changan.com.cn/scrm-app-web'; //测试地址请求头
+    console.log(hostport)
+
+    initial();
+    //初始化订单信息
+     function initial() {
+        var orderHTML = '';
+        var carInforListEmptyHtml='';
+        var showVin='';
+        carInforListEmptyHtml = '<option>暂无</option>';  //无车架号选择项
+         $.ajax({
+             method:"get",
+             url:testUrl+'/vip/carDetail',
+            data:{
+                // token: BaseClient.getCache('token'),
+                token:'ae4EYUE8k2i2KPiWcvIoRMFdjlyPYBFP'   //测试传值   固定值
+            },
+            beforeSend: function() {
+                // me.loading.show();
+            },
+            success: function(data) {
+                console.log(data);
+                if(data.data.length>0){
+                    showVin=data.data[0].vin;
+                    var carInforListHtml='';
+                    var carInforList=document.getElementById('carInforList')
+                    jsonVin = data.data;
+                    console.log(jsonVin)
+                    for(var i=0;i<jsonVin.length;i++){
+                        carInforListHtml+=' <option>'+jsonVin[i].vin+'</option>';
+                    }
+                    $("#carInforList").append(carInforListHtml)
+                    $("#carInforList").val(data.data[0].vin)
+                    if(data.data[0].vehcileNumber){
+                        $("#car_number").html(data.data[0].vehcileNumber);
+                    }else {
+                        $("#car_number").html('暂无');
+                    }
+                    getLogistics(showVin)
+
+                }else {
+                    $("#carInforList").append(carInforListEmptyHtml)
+                    $("#car_number").html('暂无')
+                    $(".emptyBox_noVin").css('display','block')
+                }
+            },
+            error:function(){
+                $("#carInforList").append(carInforListEmptyHtml)
+                $("#car_number").html('暂无')
+                $(".emptyBox_noVin").css('display','block')
+            },
+            complete: function(res) {
+                // me.loading.hide();
+            }
+        });
+    }
+
+    //获取物流信息    需要传入vin号
+    function getLogistics(vin){
+         console.log('查询订单了')
+        //获取订单信息
+        $.ajax({
+            method:"get",
+            url:testUrl+'/order/queryOrderList',
+            data:{
+                // vin:vin
+                vin:'LS5A3DHEXHA416255'
+            },
+            beforeSend: function() {
+                // me.loading.show();
+            },
+            success: function(jsonorder) {
+                console.log(jsonorder);
+                var data = jsonorder.data;
+                var order_boxHtml ='';
+                var orderHTML = '';
+                if(jsonorder.data.length>0){
+                    $(".emptyBox_noLogistics").css('display','none')
+                    //大订单循环
+                    for(var i=0;i<data.length;i++){
+                        order_boxHtml += `<li class="orderBox">
+                                                <div class="orderTitle">
+                                                    <span style="margin-left: 15px;">订单编号：</span>
+                                                    <span class="orderNumber" style="margin-left: -7px;">${data[i].orderCode}</span>
+                                                    <span class="total"style="float:right;margin-right: 17px">${data[i].orderNum}</span>
+                                                    <span style="float: right;margin-right: 8px">总数：</span>
+                                                </div>
+                                                <ul class="order">
+                                                </ul>
+                                            </li>`
+                        //子订单循环
+                        for(var j=0;j<data[i].pms2FanOrderDtlVos.length;j++){
+                            // console.log(data[i].pms2FanOrderDtlVos[j].orderDetailCode +'dasdasd');
+                            order_boxHtml += `<li style="position: relative;margin-bottom: 10px;">
+                                                    <p style="font-size:13px;margin-left: 16px;">${data[i].pms2FanOrderDtlVos[j].orderDetailName}</p>
+                                                    <P style="font-size: 10px;color:#bcc2c9;margin-left: 16px;margin-top: 11px">编码：
+                                                    <span class="code">${data[i].pms2FanOrderDtlVos[j].orderDetailCode}</span>
+                                                        </P>
+                                                        <P style="font-size: 10px;color:#bcc2c9;margin-left: 16px;margin-top: 11px">数量：<span class="code">${data[i].pms2FanOrderDtlVos[j].orderDetailNum}</span></P>
+                                                        <button class="checkLogistics" style="position: absolute;right:32px;top:36px;background-color: transparent;width: 78px;height: 25px;border: 2px solid #66bbf9;font-size: 10px;color: #66bbf9;border-radius: 20px;outline:none;">
+                                                        查看物流▽
+                                                        </button>
+                                                        <div class="logisticsInfor" style="width: 100%; display: none ">
+
+                                                     <ul class="logistics-list">`
+                            for(var k=0;k<data[i].pms2FanOrderDtlVos[j].pms2FanOrderDtlStateVos.length;k++){
+                                //物流信息需要循环的从这
+                                order_boxHtml += `<li class="logistics-item">
+                                                                                    <div class="circle"></div>
+                                                                                    <div class="vertical-line"></div>
+                                                                                    <div class="logistics-title">
+                                                                                    <p class="address">${data[i].pms2FanOrderDtlVos[j].pms2FanOrderDtlStateVos[k].logisitics}</p>
+                                                                                    <p class="time">${data[i].pms2FanOrderDtlVos[j].pms2FanOrderDtlStateVos[k].datatim}</p>
+                                                                                </div>
+                                                                                </li>`
+                            }
+                            order_boxHtml += `</ul>
+                                                                                    </div>
+                                                                                   </li>`
+                        };
+                    }
+                    $(".order").html(order_boxHtml);
+                }else {
+                    $(".order").html('');
+                    $(".emptyBox_noLogistics").css('display','block')
+                }
+            },
+            error:function(){
+                $(".order").html('');
+                $(".emptyBox_noLogistics").css('display','block')
+            },
+            complete: function(res) {
+                // me.loading.hide();
+            }
+        });
+    };
+
+    //查看物流的显示与隐藏
+    $(".order").click(".checkLogistics",function(e){
+        var btn = e.target
+        $(btn).parent().find('.logisticsInfor').slideToggle(function () {
+            console.log($(".logisticsInfor").css("display"))
+            if($(".logisticsInfor").css('display')=='none'){
+                $(btn).html('查看物流▽') ;
+            }
+            else{
+                $(btn).html('隐藏物流△');
+            }
+        });
+    });
+
+    //切换车辆后查询物流信息
+    function getVariety(val){
+        var newVin=''
+        for(var i=0;i<jsonVin.length;i++){
+            console.log('切换车辆'+'----'+val)
+            if(jsonVin[i].vin==val) {
+                if(jsonVin[i].vehcileNumber){
+                    $("#car_number").html(jsonVin[i].vehcileNumber);
+                }else {
+                    $("#car_number").html('暂无');
+                }
+                break;
+            }
+        }
+        getLogistics(val)
+    }
+
+</script>
+</body>
+</html>

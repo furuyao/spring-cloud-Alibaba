@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "guli.thread",
+      "type": "com.guli.guliproduclt.config.ThreadPoolConfigProperties",
+      "sourceType": "com.guli.guliproduclt.config.ThreadPoolConfigProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "guli.thread.core-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.guli.guliproduclt.config.ThreadPoolConfigProperties"
+    },
+    {
+      "name": "guli.thread.keep-alive-time",
+      "type": "java.lang.Integer",
+      "sourceType": "com.guli.guliproduclt.config.ThreadPoolConfigProperties"
+    },
+    {
+      "name": "guli.thread.max-size",
+      "type": "java.lang.Integer",
+      "sourceType": "com.guli.guliproduclt.config.ThreadPoolConfigProperties"
+    }
+  ],
+  "hints": []
+}
